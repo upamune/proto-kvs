@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"context"
 	"fmt"
+	"io"
 	"log"
 	"os"
 	"strings"
@@ -78,6 +79,28 @@ func main() {
 
 			for key, val := range resp.Store {
 				fmt.Printf("Key: [%s] Value: [%s]\n", key, val)
+			}
+		case "watch":
+			prefix := ""
+			if len(args) > 1 {
+				prefix = args[1]
+			}
+			rc, err := c.Watch(context.Background(), &pb.WatchRequest{Prefix: prefix})
+			if err != nil {
+				log.Println(err)
+				continue
+			}
+
+			for {
+				resp, err := rc.Recv()
+				if err == io.EOF {
+					break
+				}
+				if err != nil {
+					log.Println(err)
+					break
+				}
+				fmt.Printf("Key: [%s] Value: [%s]\n", resp.Key, resp.Value)
 			}
 		case "exit":
 			os.Exit(0)
