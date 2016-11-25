@@ -1,0 +1,169 @@
+https://app.apiary.io/protokvsFORMAT: 1A
+
+# proto/proto-kvs.proto
+
+## Group Kvs
+
+### /api/v1/store
+
+#### GET
+
++ Request (application/json)
+
+    + Headers
+
+            Accept: application/json
+
+    + Body
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+            }
+
+    + Schema
+
+            {
+              "type": "object",
+              "properties": {
+                "store": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "string",
+                    "format": "string"
+                  }
+                }
+              }
+            }
+
+#### DELETE
+
++ Request (application/json)
+
+    + Headers
+
+            Accept: application/json
+
+    + Body
+
++ Response 200 (application/json)
+
+    + Body
+
+            {}
+
+    + Schema
+
+            {
+              "type": "object"
+            }
+
+#### POST
+
++ Request (application/json)
+
+    + Headers
+
+            Accept: application/json
+
+    + Body
+
+    + Schema
+
+            {
+              "type": "object",
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "format": "string"
+                },
+                "value": {
+                  "type": "string",
+                  "format": "string"
+                }
+              }
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {}
+
+    + Schema
+
+            {
+              "type": "object"
+            }
+
+### /api/v1/store/watch/{prefix}
+
+#### GET
+
++ Parameters
+
+    + prefix (required)
+
++ Request (application/json)
+
+    + Headers
+
+            Accept: application/json
+
+    + Body
+
++ Response 200 (application/json)
+
+    (streaming responses)
+
+    + Body
+
+    + Schema
+
+            {
+              "type": "object",
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "format": "string"
+                },
+                "value": {
+                  "type": "string",
+                  "format": "string"
+                }
+              }
+            }
+
+### /api/v1/store/{key}
+
+#### GET
+
++ Parameters
+
+    + key (required)
+
++ Request (application/json)
+
+    + Headers
+
+            Accept: application/json
+
+    + Body
+
++ Response 200 (application/json)
+
+    + Body
+
+    + Schema
+
+            {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "format": "string"
+                }
+              }
+            }
