@@ -1,0 +1,208 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "proto/proto-kvs.proto",
+    "version": "version not set"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/v1/store": {
+      "get": {
+        "operationId": "List",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/protoListResponse"
+            }
+          }
+        },
+        "tags": [
+          "Kvs"
+        ]
+      },
+      "delete": {
+        "operationId": "Delete",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/protoDeleteResponse"
+            }
+          }
+        },
+        "tags": [
+          "Kvs"
+        ]
+      },
+      "post": {
+        "operationId": "Set",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/protoSetResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoSetRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Kvs"
+        ]
+      }
+    },
+    "/api/v1/store/watch/{prefix}": {
+      "get": {
+        "operationId": "Watch",
+        "responses": {
+          "200": {
+            "description": "(streaming responses)",
+            "schema": {
+              "$ref": "#/definitions/protoEntry"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "prefix",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": [
+          "Kvs"
+        ]
+      }
+    },
+    "/api/v1/store/{key}": {
+      "get": {
+        "operationId": "Get",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/protoGetResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "key",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": [
+          "Kvs"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "protoDeleteRequest": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "format": "string"
+        }
+      }
+    },
+    "protoDeleteResponse": {
+      "type": "object"
+    },
+    "protoEntry": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "format": "string"
+        },
+        "value": {
+          "type": "string",
+          "format": "string"
+        }
+      }
+    },
+    "protoGetRequest": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "format": "string"
+        }
+      }
+    },
+    "protoGetResponse": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string",
+          "format": "string"
+        }
+      }
+    },
+    "protoListRequest": {
+      "type": "object"
+    },
+    "protoListResponse": {
+      "type": "object",
+      "properties": {
+        "store": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string",
+            "format": "string"
+          }
+        }
+      }
+    },
+    "protoSetRequest": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "format": "string"
+        },
+        "value": {
+          "type": "string",
+          "format": "string"
+        }
+      }
+    },
+    "protoSetResponse": {
+      "type": "object"
+    },
+    "protoWatchRequest": {
+      "type": "object",
+      "properties": {
+        "prefix": {
+          "type": "string",
+          "format": "string"
+        }
+      }
+    }
+  }
+}
